@@ -2,8 +2,8 @@ package dev.buildtool.satako.api;
 
 import net.minecraft.nbt.NbtCompound;
 
-public interface TagConvertible<P> {
+public interface TagConvertible {
     NbtCompound writeToTag();
 
-    P readFromTag(NbtCompound nbtCompound);
+    void readFromTag(NbtCompound nbtCompound);
 }

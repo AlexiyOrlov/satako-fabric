@@ -13,7 +13,7 @@ import net.minecraft.nbt.NbtCompound;
  * Uses {@linkplain ItemList} to store items.
  * Created on 7/20/19.
  */
-public class DefaultInventory implements Inventory, TagConvertible<DefaultInventory> {
+public class DefaultInventory implements Inventory, TagConvertible {
     protected ItemList itemStacks;
 
     public DefaultInventory(int size) {
@@ -117,7 +117,7 @@ public class DefaultInventory implements Inventory, TagConvertible<DefaultInvent
     }
 
     @Override
-    public DefaultInventory readFromTag(NbtCompound nbtCompound) {
+    public void readFromTag(NbtCompound nbtCompound) {
         int count = nbtCompound.getInt("Size");
         if (count > 0) {
             for (int i = 0; i < count; i++) {
@@ -125,6 +125,5 @@ public class DefaultInventory implements Inventory, TagConvertible<DefaultInvent
                 setStack(i, itemStack);
             }
         }
-        return this;
     }
 }
