@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "id": "satako",
+  "version": "${version}",
+
+  "name": "Satako",
+  "description": "Shared modding library",
+  "authors": [
+    "Alexiy"
+  ],
+  "contact": {},
+
+  "license": "GNU GPLv3",
+
+  "environment": "*",
+  "entrypoints": {},
+
+  "depends": {
+    "fabricloader": ">=0.12.12",
+    "fabric": "*",
+    "minecraft": "1.18.x"
+  }
+}
