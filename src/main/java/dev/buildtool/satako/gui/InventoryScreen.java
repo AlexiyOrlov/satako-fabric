@@ -93,6 +93,13 @@ public class InventoryScreen<S extends ScreenHandler> extends AbstractInventoryS
 
     }
 
+    @Override
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+        renderBackground(matrices);
+        super.render(matrices, mouseX, mouseY, delta);
+        drawMouseoverTooltip(matrices, mouseX, mouseY);
+    }
+
     protected List<Slot> getSlots() {
         return handler.slots;
     }
