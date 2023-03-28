@@ -3,7 +3,8 @@ package dev.buildtool.satako.gui;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.datafixers.util.Pair;
 import dev.buildtool.satako.Constants;
-import net.minecraft.client.gui.screen.ingame.AbstractInventoryScreen;
+import net.minecraft.client.gui.Element;
+import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.texture.TextureManager;
 import net.minecraft.client.util.math.MatrixStack;
@@ -15,9 +16,9 @@ import net.minecraft.util.Identifier;
 
 import java.util.List;
 
-public class InventoryScreen<S extends ScreenHandler> extends AbstractInventoryScreen<S> {
+public class InventoryScreen<S extends ScreenHandler> extends HandledScreen<S> {
     protected boolean drawBorders;
-    protected int centerX, centerY;
+    protected int centerX, centerY, leftPosition, topPosition;
 
     public InventoryScreen(S screenHandler, PlayerInventory playerInventory, Text text, boolean drawBorders) {
         super(screenHandler, playerInventory, text);
@@ -42,6 +43,8 @@ public class InventoryScreen<S extends ScreenHandler> extends AbstractInventoryS
         super.init();
         centerX = width / 2;
         centerY = height / 2;
+        leftPosition = (width - backgroundWidth) / 2;
+        topPosition = (height - backgroundHeight) / 2;
     }
 
     @Override
@@ -102,5 +105,13 @@ public class InventoryScreen<S extends ScreenHandler> extends AbstractInventoryS
 
     protected List<Slot> getSlots() {
         return handler.slots;
+    }
+
+    @Override
+    public boolean mouseReleased(double mouseX, double mouseY, int button) {
+        for (Element child : children()) {
+            child.mouseReleased(mouseX, mouseY, button);
+        }
+        return super.mouseReleased(mouseX, mouseY, button);
     }
 }

@@ -24,6 +24,11 @@ public class RadioButton extends BetterButton {
         super(x, y, width, height, message, onPress, tooltipSupplier);
     }
 
+    public RadioButton(int x, int y, Text text) {
+        this(x, y, MinecraftClient.getInstance().textRenderer.getWidth(text) + 8, 20, text, button -> {
+        });
+    }
+
     public void addNeighbour(RadioButton radioButton) {
         neighbours.add(radioButton);
     }

@@ -1,12 +1,14 @@
 package dev.buildtool.satako.gui;
 
 import dev.buildtool.satako.Constants;
+import dev.buildtool.satako.api.Hideable;
+import dev.buildtool.satako.api.Positionable;
 import dev.buildtool.satako.api.Scrollable;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.text.Text;
 
-public class BetterButton extends ButtonWidget implements Scrollable {
+public class BetterButton extends ButtonWidget implements Scrollable, Positionable, Hideable {
     protected boolean verticallyScrollable, horizontallyScrollable;
     protected int verticalScrollAmount = height, horizontalScrollAmount = width;
 
@@ -20,6 +22,11 @@ public class BetterButton extends ButtonWidget implements Scrollable {
 
     public BetterButton(int x, int y, Text text, PressAction action, TooltipSupplier tooltipSupplier) {
         this(x, y, MinecraftClient.getInstance().textRenderer.getWidth(text.getString()) + 8, Constants.BUTTON_HEIGHT, text, action, tooltipSupplier);
+    }
+
+    public BetterButton(int x, int y, Text text) {
+        this(x, y, MinecraftClient.getInstance().textRenderer.getWidth(text) + 8, 20, text, button -> {
+        });
     }
 
     @Override
@@ -46,5 +53,40 @@ public class BetterButton extends ButtonWidget implements Scrollable {
             verticalScrollAmount = amount;
         else
             horizontalScrollAmount = amount;
+    }
+
+    @Override
+    public void setHidden(boolean hidden) {
+        this.visible = !hidden;
+    }
+
+    @Override
+    public int getElementWidth() {
+        return width;
+    }
+
+    @Override
+    public int getElementHeight() {
+        return height;
+    }
+
+    @Override
+    public int getX() {
+        return x;
+    }
+
+    @Override
+    public void setX(int X) {
+        x = X;
+    }
+
+    @Override
+    public int getY() {
+        return y;
+    }
+
+    @Override
+    public void setY(int Y) {
+        y = Y;
     }
 }

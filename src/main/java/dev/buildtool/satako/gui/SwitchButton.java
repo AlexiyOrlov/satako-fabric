@@ -44,6 +44,7 @@ public class SwitchButton extends BetterButton {
             } else {
                 setMessage(whenFalse);
             }
+            state = !state;
         }
         return clicked;
     }

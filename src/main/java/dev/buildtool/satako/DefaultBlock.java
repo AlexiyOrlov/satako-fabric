@@ -10,13 +10,20 @@ import net.minecraft.world.World;
 
 @SuppressWarnings("unused")
 public class DefaultBlock extends Block {
+    private boolean dropItems = true;
+
     public DefaultBlock(Settings settings) {
         super(settings);
     }
 
+    public DefaultBlock(Settings settings, boolean dropItems) {
+        super(settings);
+        this.dropItems = dropItems;
+    }
+
     @Override
     public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
-        if (state.getBlock() != newState.getBlock()) {
+        if (dropItems && state.getBlock() != newState.getBlock()) {
             BlockEntity blockEntity = world.getBlockEntity(pos);
             if (blockEntity instanceof Inventory inventory) {
                 ItemScatterer.spawn(world, pos, inventory);
