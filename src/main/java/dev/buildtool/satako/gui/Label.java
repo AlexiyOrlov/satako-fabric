@@ -21,6 +21,6 @@ public class Label extends BetterButton {
 
     @Override
     public void renderButton(MatrixStack matrices, int mouseX, int mouseY, float delta) {
-        drawStringWithShadow(matrices, MinecraftClient.getInstance().textRenderer, getMessage().asString(), x, y, 0xffffff);
+        drawStringWithShadow(matrices, MinecraftClient.getInstance().textRenderer, getMessage().getString(), x, y, 0xffffff);
     }
 }

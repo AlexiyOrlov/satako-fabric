@@ -3,7 +3,6 @@ package dev.buildtool.satako.gui;
 import dev.buildtool.satako.api.Scrollable;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.widget.TextFieldWidget;
-import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import org.jetbrains.annotations.Nullable;
 
@@ -20,7 +19,7 @@ public class TextField extends TextFieldWidget implements Scrollable {
     }
 
     public TextField(int X, int Y, int width) {
-        super(MinecraftClient.getInstance().textRenderer, X, Y, width, 15, new LiteralText(""));
+        super(MinecraftClient.getInstance().textRenderer, X, Y, width, 15, Text.literal(""));
     }
 
     @Override

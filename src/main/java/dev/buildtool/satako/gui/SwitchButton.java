@@ -18,8 +18,8 @@ public class SwitchButton extends BetterButton {
     public SwitchButton(int x, int y, Text whenTrue_, Text whenFalse_, boolean startState, PressAction pressable) {
         super(x, y, startState ? whenTrue_ : whenFalse_, pressable, (button, matrices, mouseX, mouseY) -> {
         });
-        int l1 = whenTrue_.asString().length();
-        int l2 = whenFalse_.asString().length();
+        int l1 = whenTrue_.getString().length();
+        int l2 = whenFalse_.getString().length();
         if (l1 > l2) {
             this.width = MinecraftClient.getInstance().textRenderer.getWidth(whenTrue_) + 8;
         } else {

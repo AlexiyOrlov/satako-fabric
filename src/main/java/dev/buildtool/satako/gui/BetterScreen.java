@@ -38,7 +38,7 @@ public class BetterScreen extends Screen {
     }
 
     @Override
-    public boolean isPauseScreen() {
+    public boolean shouldPause() {
         return client.player.getHealth() < client.player.getMaxHealth() / 2;
     }
 }

@@ -18,10 +18,11 @@ public class BetterScreenHandler extends ScreenHandler {
         return true;
     }
 
+
     @Override
     public ItemStack transferSlot(PlayerEntity player, int index) {
         Slot clickedSlot = this.slots.get(index);
-        ItemStack stack;
+        ItemStack stack = ItemStack.EMPTY;
         if (clickedSlot.hasStack()) {
             ItemStack clickedStack = clickedSlot.getStack();
             stack = clickedStack.copy();
@@ -36,7 +37,7 @@ public class BetterScreenHandler extends ScreenHandler {
             }
             clickedSlot.onTakeItem(player, clickedStack);
         }
-        return super.transferSlot(player, index);
+        return stack;
     }
 
     protected void addPlayerInventory(int horizontalOffset, int verticalOffset, PlayerEntity player) {
