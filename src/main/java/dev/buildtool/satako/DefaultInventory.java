@@ -126,4 +126,8 @@ public class DefaultInventory implements Inventory, TagConvertible {
             }
         }
     }
+
+    public ItemList getItems() {
+        return itemStacks;
+    }
 }
