@@ -37,12 +37,12 @@ public class SwitchButton extends BetterButton {
 
     @Override
     public void onClick(double mouseX, double mouseY) {
-        super.onClick(mouseX, mouseY);
         state = !state;
         if (state) {
             setMessage(whenTrue);
         } else {
             setMessage(whenFalse);
         }
+        super.onClick(mouseX, mouseY);
     }
 }
