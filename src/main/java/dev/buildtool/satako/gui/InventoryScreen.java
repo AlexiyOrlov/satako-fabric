@@ -93,7 +93,7 @@ public class InventoryScreen<S extends ScreenHandler> extends HandledScreen<S> {
 
     @Override
     protected void drawForeground(MatrixStack matrices, int mouseX, int mouseY) {
-        textRenderer.draw(matrices, title, backgroundWidth / 2f - textRenderer.getWidth(title) / 2f, -1, 0xE35F3B);
+        textRenderer.draw(matrices, title, backgroundWidth / 2f - textRenderer.getWidth(title) / 2f, -14, 0xE35F3B);
     }
 
     @Override
