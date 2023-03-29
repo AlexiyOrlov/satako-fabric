@@ -109,8 +109,8 @@ public class ScrollArea extends ClickableWidget {
         bufferBuilder.vertex(buttonLeft, bottomButtonTop + height / 2f, 0).color(color.getRed(), 128, color.getBlue(), 255).next();
         bufferBuilder.vertex(buttonLeft + 20, bottomButtonTop + height / 2f, 0).color(color.getRed(), 128, color.getBlue(), 255).next();
         tesselator.draw();
-        drawCenteredText(matrices, textRenderer, Text.literal("-"), buttonLeft + 10, y + height / 4, 0xffffff);
-        drawCenteredText(matrices, textRenderer, Text.literal("+"), buttonLeft + 10, (bottomButtonTop + height / 4) - 10, 0xffffff);
+        drawCenteredText(matrices, textRenderer, Text.literal("+"), buttonLeft + 10, y + height / 4, 0xffffff);
+        drawCenteredText(matrices, textRenderer, Text.literal("-"), buttonLeft + 10, (bottomButtonTop + height / 4) - 10, 0xffffff);
         if (scrollDirection != 0) {
             if (scrolled == 0 || (scrolled > -(maxScrollDistance - height) || scrolled < -(maxScrollDistance - height) && scrollDirection == 1) && (scrolled <= 0 || scrollDirection == -1)) {
                 for (Object guiEventListener : elements) {

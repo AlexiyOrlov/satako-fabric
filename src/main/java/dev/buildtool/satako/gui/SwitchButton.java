@@ -36,16 +36,13 @@ public class SwitchButton extends BetterButton {
     }
 
     @Override
-    public boolean mouseClicked(double p_mouseClicked_1_, double p_mouseClicked_3_, int p_mouseClicked_5_) {
-        boolean clicked = super.mouseClicked(p_mouseClicked_1_, p_mouseClicked_3_, p_mouseClicked_5_);
-        if (clicked) {
-            if (state) {
-                setMessage(whenTrue);
-            } else {
-                setMessage(whenFalse);
-            }
-            state = !state;
+    public void onClick(double mouseX, double mouseY) {
+        super.onClick(mouseX, mouseY);
+        state = !state;
+        if (state) {
+            setMessage(whenTrue);
+        } else {
+            setMessage(whenFalse);
         }
-        return clicked;
     }
 }

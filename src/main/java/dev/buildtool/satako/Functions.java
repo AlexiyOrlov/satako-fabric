@@ -162,4 +162,18 @@ public class Functions {
         }
         return false;
     }
+
+    /**
+     * Angle Y or Z
+     */
+    public static float getDefaultHeadYaw(float netYaw) {
+        return netYaw * 0.017453292F;
+    }
+
+    /**
+     * Angle X
+     */
+    public static float getDefaultHeadPitch(float pitch) {
+        return pitch * 0.017453292F;
+    }
 }

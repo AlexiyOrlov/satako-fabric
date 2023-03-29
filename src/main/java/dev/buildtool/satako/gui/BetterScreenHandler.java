@@ -9,7 +9,7 @@ import net.minecraft.screen.slot.Slot;
 import org.jetbrains.annotations.Nullable;
 
 public class BetterScreenHandler extends ScreenHandler {
-    protected BetterScreenHandler(@Nullable ScreenHandlerType<?> type, int syncId) {
+    public BetterScreenHandler(@Nullable ScreenHandlerType<?> type, int syncId) {
         super(type, syncId);
     }
 

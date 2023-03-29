@@ -29,6 +29,10 @@ public class BetterButton extends ButtonWidget implements Scrollable, Positionab
         });
     }
 
+    public BetterButton(int x, int y, Text text, PressAction onPress) {
+        this(x, y, MinecraftClient.getInstance().textRenderer.getWidth(text.getString()) + 8, 20, text, onPress);
+    }
+
     @Override
     public void scroll(int direction, boolean vertically) {
         if (vertically && verticallyScrollable) {
