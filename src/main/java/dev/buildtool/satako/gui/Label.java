@@ -13,8 +13,7 @@ public class Label extends BetterButton implements Scrollable {
     protected int scrollAmount;
 
     public Label(int x, int y, int width, int height, Text message) {
-        super(x, y, width, height, message, button -> {
-        });
+        super(x, y, width, height, message, null);
     }
 
     public Label(int x, int y, int width, int height, Text message, TooltipSupplier tooltipSupplier) {
@@ -52,5 +51,25 @@ public class Label extends BetterButton implements Scrollable {
             } else
                 drawTextWithShadow(matrices, MinecraftClient.getInstance().textRenderer, getMessage(), this.getX(), this.getY() + (this.height - 8) / 2, 16777215 | MathHelper.ceil(this.alpha * 255.0F) << 24);
         }
+    }
+
+    @Override
+    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+        if (this.onPress != null)
+            return super.keyPressed(keyCode, scanCode, modifiers);
+        return false;
+    }
+
+    @Override
+    public void onClick(double mouseX, double mouseY) {
+        if (onPress != null)
+            super.onClick(mouseX, mouseY);
+    }
+
+    @Override
+    public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        if (onPress != null)
+            return super.mouseClicked(mouseX, mouseY, button);
+        return false;
     }
 }
