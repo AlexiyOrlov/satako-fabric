@@ -10,7 +10,10 @@ import net.minecraft.util.math.MathHelper;
 
 public class Label extends BetterButton implements Scrollable {
     protected Screen parent;
-    protected int scrollAmount;
+
+    {
+        verticalScrollAmount = 20;
+    }
 
     public Label(int x, int y, int width, int height, Text message) {
         super(x, y, width, height, message, null);
@@ -36,7 +39,7 @@ public class Label extends BetterButton implements Scrollable {
 
     public Label(int x, int y, Text text, Screen parent, ButtonWidget.PressAction pressHandler) {
         super(x, y, MinecraftClient.getInstance().textRenderer.getWidth(text.getString()) + 8, 18, text, pressHandler);
-        scrollAmount = 20;
+
         this.parent = parent;
     }
 
