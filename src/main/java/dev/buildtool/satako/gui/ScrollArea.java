@@ -130,22 +130,6 @@ public class ScrollArea extends ClickableWidget {
     }
 
     @Override
-    public boolean mouseScrolled(double mouseX, double mouseY, double amount) {
-        for (Object guiEventListener : elements) {
-            if (guiEventListener instanceof Positionable positionable3) {
-                positionable3.setY((int) (positionable3.getY() + amount * 20));
-                if (positionable3 instanceof Hideable hideable) {
-                    hideable.setHidden(positionable3.getY() < y || positionable3.getY() + positionable3.getElementHeight() > y + height);
-                }
-            } else if (guiEventListener instanceof ClickableWidget a) {
-                a.y = (int) (a.y + amount * 20);
-                a.visible = a.y > y && a.y + a.getHeight() < y + height;
-            }
-        }
-        return true;
-    }
-
-    @Override
     public void playDownSound(SoundManager soundManager) {
 
     }
