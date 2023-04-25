@@ -16,6 +16,11 @@ public class RadioButton extends BetterButton {
     public boolean selected;
     private final List<RadioButton> neighbours = new ArrayList<>();
 
+    public RadioButton(int x, int y, Text message) {
+        this(x, y, message, button -> {
+        });
+    }
+
     public RadioButton(int x, int y, int width, int height, Text message, PressAction onPress) {
         super(x, y, width, height, message, onPress);
     }
