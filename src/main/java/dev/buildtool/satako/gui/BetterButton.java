@@ -5,12 +5,19 @@ import dev.buildtool.satako.api.Hideable;
 import dev.buildtool.satako.api.Positionable;
 import dev.buildtool.satako.api.Scrollable;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.text.Text;
 
 public class BetterButton extends ButtonWidget implements Scrollable, Positionable, Hideable {
     protected boolean verticallyScrollable, horizontallyScrollable;
     protected int verticalScrollAmount = height, horizontalScrollAmount = width;
+
+    protected TextRenderer textRenderer;
+
+    {
+        textRenderer = MinecraftClient.getInstance().textRenderer;
+    }
 
     public BetterButton(int x, int y, int width, int height, Text message, PressAction onPress) {
         super(x, y, width, height, message, onPress);
