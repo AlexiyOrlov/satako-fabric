@@ -1,5 +1,6 @@
 1.0.13-1.19.2:
 implemented dropdown button;
+disabled mouse scrolling of scroll area;
 
 1.0.12-1.19.2:
 implemented scroll area;
