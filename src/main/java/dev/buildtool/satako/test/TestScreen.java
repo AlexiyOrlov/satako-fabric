@@ -7,6 +7,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 public class TestScreen extends InventoryScreen<TestScreenHandler> {
     public TestScreen(TestScreenHandler screenHandler, PlayerInventory playerInventory, Text text) {
@@ -44,5 +45,24 @@ public class TestScreen extends InventoryScreen<TestScreenHandler> {
         addDrawableChild(new Label(this.leftPosition + backgroundWidth + 10, this.topPosition + 20, Text.literal("Clickable 2"), this, button -> client.player.sendMessage(Text.literal("Clicked second label"), false)));
         ScrollArea scrollArea = new ScrollArea(3, 3, leftPosition - 10, height, Text.literal("List"), new IntegerColor(0x22F8A55E), elements);
         addDrawableChild(scrollArea);
+        DropDownButton dropDownButton = new DropDownButton(leftPosition, topPosition + this.backgroundHeight + 20, this, Text.literal(""));
+        LinkedHashMap<Text, ButtonWidget.PressAction> linkedHashMap = new LinkedHashMap<>(3);
+        linkedHashMap.put(Text.literal("1.0"), button -> {
+            client.player.sendMessage(Text.literal("Pressed first button"), false);
+            dropDownButton.setMessage(button.getMessage());
+            dropDownButton.onPress();
+        });
+        linkedHashMap.put(Text.literal("2.0"), button -> {
+            client.player.sendMessage(Text.literal("Pressed second button"), false);
+            dropDownButton.setMessage(button.getMessage());
+            dropDownButton.onPress();
+        });
+        linkedHashMap.put(Text.literal("3.0"), button -> {
+            client.player.sendMessage(Text.literal("Pressed third button"), false);
+            dropDownButton.setMessage(button.getMessage());
+            dropDownButton.onPress();
+        });
+        dropDownButton.setChoices(linkedHashMap, 0);
+        addDrawableChild(dropDownButton);
     }
 }

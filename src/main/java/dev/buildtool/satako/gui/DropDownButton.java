@@ -11,7 +11,7 @@ import net.minecraft.text.Text;
 import java.util.*;
 
 public class DropDownButton extends BetterButton {
-    private Screen parent;
+    private final Screen parent;
     private HashMap<Text, RadioButton> choices;
     private boolean open;
     private final List<Element> overlappingElements = new ArrayList<>();
