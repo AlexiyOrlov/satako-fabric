@@ -110,7 +110,7 @@ public class DropDownButton extends BetterButton {
             radioButton.selected = selectedButton + 1 - offset == -1;
             if (radioButton.selected)
                 setMessage(radioButton.getMessage());
-            this.parent.addSelectableChild(radioButton);
+            this.parent.addDrawableChild(radioButton);
             this.choices.put(component, radioButton);
             buttonGroup.add(radioButton);
             if (radioButton.getElementWidth() > getElementWidth())
