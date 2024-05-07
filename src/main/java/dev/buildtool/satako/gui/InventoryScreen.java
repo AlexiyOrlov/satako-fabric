@@ -72,7 +72,7 @@ public class InventoryScreen<S extends ScreenHandler> extends HandledScreen<S> {
                         else
                             textureManager.bindTexture(background);
                     } else {
-                        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+                        RenderSystem.setShader(GameRenderer::getPositionTexColorProgram);
                         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
                         RenderSystem.setShaderTexture(0, Constants.GREY_TEXTURE);
                         drawTexture(matrices, slotX + x, slotY + y, 0, 0, 16, 16);

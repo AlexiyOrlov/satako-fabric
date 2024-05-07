@@ -34,7 +34,7 @@ public class DropDownButton extends BetterButton {
                                 if (clickableWidget instanceof Hideable hideable) {
                                     for (int i = 0; i < positionable.getElementWidth(); i++) {
                                         for (int j = 0; j < positionable.getElementHeight(); j++) {
-                                            if (isInsideArea(positionable.getX() + i, positionable.getY() + j, radioButton.x, radioButton.x + radioButton.getElementWidth(), radioButton.y, radioButton.y + radioButton.getElementHeight())) {
+                                            if (isInsideArea(positionable.getX() + i, positionable.getY() + j, radioButton.getX(), radioButton.getX() + radioButton.getElementWidth(), radioButton.getY(), radioButton.getY() + radioButton.getElementHeight())) {
                                                 hideable.setHidden(true);
                                                 overlappingElements.add(clickableWidget);
                                                 break;
@@ -45,7 +45,7 @@ public class DropDownButton extends BetterButton {
                             } else if (clickableWidget instanceof ClickableWidget abstractWidget) {
                                 for (int i = 0; i < abstractWidget.getWidth(); i++) {
                                     for (int j = 0; j < abstractWidget.getHeight(); j++) {
-                                        if (isInsideArea(abstractWidget.x + i, abstractWidget.y + j, radioButton.x, radioButton.x + radioButton.getElementWidth(), radioButton.y, radioButton.y + radioButton.getElementHeight())) {
+                                        if (isInsideArea(abstractWidget.getX() + i, abstractWidget.getY() + j, radioButton.getX(), radioButton.getX() + radioButton.getElementWidth(), radioButton.getY(), radioButton.getY() + radioButton.getElementHeight())) {
                                             abstractWidget.visible = false;
                                             overlappingElements.add(clickableWidget);
                                             break;
@@ -89,9 +89,9 @@ public class DropDownButton extends BetterButton {
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
         super.render(matrices, mouseX, mouseY, delta);
         if (open)
-            drawStringWithShadow(matrices, textRenderer, " :", x + width, y + height / 2 - 4, 0xffffffff);
+            drawTextWithShadow(matrices, textRenderer, " :", getX() + width, getY() + height / 2 - 4, 0xffffffff);
         else
-            drawStringWithShadow(matrices, textRenderer, " V", x + width, y + height / 2 - 4, 0xffffffff);
+            drawTextWithShadow(matrices, textRenderer, " V", getX() + width, getY() + height / 2 - 4, 0xffffffff);
     }
 
     /**
@@ -105,7 +105,7 @@ public class DropDownButton extends BetterButton {
         for (Map.Entry<Text, PressAction> entry : map.entrySet()) {
             Text component = entry.getKey();
             PressAction onPress1 = entry.getValue();
-            RadioButton radioButton = new RadioButton(x, y + 20 * offset++, component, onPress1);
+            RadioButton radioButton = new RadioButton(getX(), getY() + 20 * offset++, component, onPress1);
             radioButton.setHidden(true);
             radioButton.selected = selectedButton + 1 - offset == -1;
             if (radioButton.selected)

@@ -25,10 +25,10 @@ public class TextField extends TextFieldWidget implements Scrollable {
     @Override
     public void scroll(int direction, boolean vertically) {
         if (vertically && verticallyScrollable) {
-            y += verticalScrollAmount * direction;
+            setY(getY() + verticalScrollAmount * direction);
         }
         if (!vertically && horizontallyScrollable) {
-            x += horizontalScrollAmount * direction;
+            setX(getX() + horizontalScrollAmount * direction);
         }
     }
 

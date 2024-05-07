@@ -20,15 +20,11 @@ public class BetterButton extends ButtonWidget implements Scrollable, Positionab
     }
 
     public BetterButton(int x, int y, int width, int height, Text message, PressAction onPress) {
-        super(x, y, width, height, message, onPress);
+        super(x, y, width, height, message, onPress, textSupplier -> Text.literal(""));
     }
 
-    public BetterButton(int x, int y, int width, int height, Text message, PressAction onPress, TooltipSupplier tooltipSupplier) {
-        super(x, y, width, height, message, onPress, tooltipSupplier);
-    }
-
-    public BetterButton(int x, int y, Text text, PressAction action, TooltipSupplier tooltipSupplier) {
-        this(x, y, MinecraftClient.getInstance().textRenderer.getWidth(text.getString()) + 8, Constants.BUTTON_HEIGHT, text, action, tooltipSupplier);
+    public BetterButton(int x, int y, Text text, PressAction action) {
+        this(x, y, MinecraftClient.getInstance().textRenderer.getWidth(text.getString()) + 8, Constants.BUTTON_HEIGHT, text, action);
     }
 
     public BetterButton(int x, int y, Text text) {
@@ -36,17 +32,15 @@ public class BetterButton extends ButtonWidget implements Scrollable, Positionab
         });
     }
 
-    public BetterButton(int x, int y, Text text, PressAction onPress) {
-        this(x, y, MinecraftClient.getInstance().textRenderer.getWidth(text.getString()) + 8, 20, text, onPress);
-    }
-
     @Override
     public void scroll(int direction, boolean vertically) {
         if (vertically && verticallyScrollable) {
-            y += verticalScrollAmount * direction;
+            setY(getY() + verticalScrollAmount * direction);
+            ;
         }
         if (!vertically && horizontallyScrollable) {
-            x += horizontalScrollAmount * direction;
+            setX(getX() + horizontalScrollAmount * direction);
+            ;
         }
     }
 
@@ -79,25 +73,5 @@ public class BetterButton extends ButtonWidget implements Scrollable, Positionab
     @Override
     public int getElementHeight() {
         return height;
-    }
-
-    @Override
-    public int getX() {
-        return x;
-    }
-
-    @Override
-    public void setX(int X) {
-        x = X;
-    }
-
-    @Override
-    public int getY() {
-        return y;
-    }
-
-    @Override
-    public void setY(int Y) {
-        y = Y;
     }
 }

@@ -20,7 +20,7 @@ public class BetterScreenHandler extends ScreenHandler {
 
 
     @Override
-    public ItemStack transferSlot(PlayerEntity player, int index) {
+    public ItemStack quickMove(PlayerEntity player, int index) {
         Slot clickedSlot = this.slots.get(index);
         ItemStack stack = ItemStack.EMPTY;
         if (clickedSlot.hasStack()) {

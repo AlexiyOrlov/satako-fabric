@@ -29,7 +29,7 @@ public class TestScreen extends InventoryScreen<TestScreenHandler> {
             addDrawableChild(label);
             elements.add(label);
         }
-        ButtonWidget buttonWidget1 = new ButtonWidget(20, 120, 100, 20, Text.literal("Vanilla button 1"), button -> {
+        ButtonWidget buttonWidget1 = new BetterButton(20, 120, 100, 20, Text.literal("Vanilla button 1"), button -> {
         });
         ButtonWidget buttonWidget2 = new BetterButton(20, 140, 100, 20, Text.literal("Vanilla button 2"), button -> {
         });

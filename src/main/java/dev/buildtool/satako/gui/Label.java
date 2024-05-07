@@ -19,13 +19,9 @@ public class Label extends BetterButton implements Scrollable {
         super(x, y, width, height, message, null);
     }
 
-    public Label(int x, int y, int width, int height, Text message, TooltipSupplier tooltipSupplier) {
-        super(x, y, width, height, message, button -> {
-        }, tooltipSupplier);
-    }
 
-    public Label(int x, int y, Text text, PressAction action, TooltipSupplier tooltipSupplier) {
-        super(x, y, text, action, tooltipSupplier);
+    public Label(int x, int y, Text text, PressAction action) {
+        super(x, y, text, action);
     }
 
     public Label(int x, int y, Text text) {
@@ -34,7 +30,7 @@ public class Label extends BetterButton implements Scrollable {
 
     @Override
     public void renderButton(MatrixStack matrices, int mouseX, int mouseY, float delta) {
-        drawStringWithShadow(matrices, MinecraftClient.getInstance().textRenderer, getMessage().getString(), x, y, 0xffffff);
+        drawTextWithShadow(matrices, MinecraftClient.getInstance().textRenderer, getMessage().getString(), getX(), getY(), 0xffffff);
     }
 
     public Label(int x, int y, Text text, Screen parent, ButtonWidget.PressAction pressHandler) {

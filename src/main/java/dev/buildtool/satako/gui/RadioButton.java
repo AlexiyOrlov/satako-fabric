@@ -4,6 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.widget.ClickableWidget;
+import net.minecraft.client.gui.widget.PressableWidget;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
@@ -43,26 +44,34 @@ public class RadioButton extends BetterButton {
         return clicked;
     }
 
-    public RadioButton(int x, int y, Text text, PressAction action, TooltipSupplier tooltipSupplier) {
-        super(x, y, text, action, tooltipSupplier);
-    }
 
     @Override
     public void renderButton(MatrixStack matrices, int mouseX, int mouseY, float delta) {
         this.hovered = selected;
         MinecraftClient minecraftClient = MinecraftClient.getInstance();
         TextRenderer textRenderer = minecraftClient.textRenderer;
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        RenderSystem.setShader(GameRenderer::getPositionTexColorProgram);
         RenderSystem.setShaderTexture(0, WIDGETS_TEXTURE);
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, this.alpha);
-        int i = this.getYImage(this.isHovered());
+        int i = this.getTextureY();
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
         RenderSystem.enableDepthTest();
-        this.drawTexture(matrices, this.x, this.y, 0, 46 + i * 20, this.width / 2, this.height);
-        this.drawTexture(matrices, this.x + this.width / 2, this.y, 200 - this.width / 2, 46 + i * 20, this.width / 2, this.height);
-        this.renderBackground(matrices, minecraftClient, mouseX, mouseY);
+        drawTexture(matrices, this.getX(), this.getY(), 0, 46 + i * 20, this.width / 2, this.height);
+        drawTexture(matrices, this.getX() + this.width / 2, this.getY(), 200 - this.width / 2, 46 + i * 20, this.width / 2, this.height);
+        PressableWidget.drawNineSlicedTexture(matrices, this.getX(), this.getY(), this.getWidth(), this.getHeight(), 20, 4, 200, 20, 0, this.getTextureY());
         int j = this.isHovered() ? 0xFFFFFF : 0xA0A0A0;
-        ClickableWidget.drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0f) << 24);
+        ClickableWidget.drawCenteredTextWithShadow(matrices, textRenderer, this.getMessage(), this.getX() + this.width / 2, this.getY() + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0f) << 24);
+    }
+
+    private int getTextureY() {
+        int i = 1;
+        if (!this.active) {
+            i = 0;
+        } else if (this.isSelected()) {
+            i = 2;
+        }
+
+        return 46 + i * 20;
     }
 }
