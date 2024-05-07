@@ -1,5 +1,6 @@
 1.0.14-1.19.2:
 fixed dropdown button;
+fixed color;
 
 1.0.13-1.19.2:
 implemented dropdown button;
