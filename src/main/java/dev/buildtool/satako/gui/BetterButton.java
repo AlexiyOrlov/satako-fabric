@@ -8,10 +8,13 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
 
 public class BetterButton extends ButtonWidget implements Scrollable, Positionable, Hideable {
     protected boolean verticallyScrollable, horizontallyScrollable;
     protected int verticalScrollAmount = height, horizontalScrollAmount = width;
+    public static final Identifier WIDGETS_LOCATION = new Identifier("textures/gui/widgets.png");
+
 
     protected TextRenderer textRenderer;
 

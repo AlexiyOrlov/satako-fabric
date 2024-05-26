@@ -6,11 +6,11 @@ import dev.buildtool.satako.api.Hideable;
 import dev.buildtool.satako.api.Positionable;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.narration.NarrationMessageBuilder;
 import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.client.render.*;
 import net.minecraft.client.sound.SoundManager;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 
 import java.util.List;
@@ -83,11 +83,11 @@ public class ScrollArea extends ClickableWidget {
     }
 
     @Override
-    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
-        fill(matrices, getX(), getY(), getX() + getWidth(), getY() + getHeight(), color.getIntColor());
+    protected void renderWidget(DrawContext context, int mouseX, int mouseY, float delta) {
+        context.fill(getX(), getY(), getX() + getWidth(), getY() + getHeight(), color.getIntColor());
         TextRenderer textRenderer = MinecraftClient.getInstance().textRenderer;
         if (!getMessage().getString().isEmpty())
-            drawCenteredTextWithShadow(matrices, textRenderer, getMessage(), getX() + width / 2, getY() - 15, 0xffffff);
+            context.drawCenteredTextWithShadow(textRenderer, getMessage(), getX() + width / 2, getY() - 15, 0xffffff);
         RenderSystem.setShader(GameRenderer::getPositionColorProgram);
 //        RenderSystem.disableTexture();
         Tessellator tesselator = Tessellator.getInstance();
@@ -104,8 +104,8 @@ public class ScrollArea extends ClickableWidget {
         bufferBuilder.vertex(buttonLeft, bottomButtonTop + height / 2f, 0).color(color.getRed(), 128, color.getBlue(), 255).next();
         bufferBuilder.vertex(buttonLeft + 20, bottomButtonTop + height / 2f, 0).color(color.getRed(), 128, color.getBlue(), 255).next();
         tesselator.draw();
-        drawCenteredTextWithShadow(matrices, textRenderer, Text.literal("+"), buttonLeft + 10, getY() + height / 4, 0xffffff);
-        drawCenteredTextWithShadow(matrices, textRenderer, Text.literal("-"), buttonLeft + 10, (bottomButtonTop + height / 4) - 10, 0xffffff);
+        context.drawCenteredTextWithShadow(textRenderer, Text.literal("+"), buttonLeft + 10, getY() + height / 4, 0xffffff);
+        context.drawCenteredTextWithShadow(textRenderer, Text.literal("-"), buttonLeft + 10, (bottomButtonTop + height / 4) - 10, 0xffffff);
         if (scrollDirection != 0) {
             if (scrolled == 0 || (scrolled > -(maxScrollDistance - height) || scrolled < -(maxScrollDistance - height) && scrollDirection == 1) && (scrolled <= 0 || scrollDirection == -1)) {
                 for (Object guiEventListener : elements) {
@@ -122,11 +122,6 @@ public class ScrollArea extends ClickableWidget {
                 scrolled += scrollDirection * 20;
             }
         }
-    }
-
-    @Override
-    public void renderButton(MatrixStack matrices, int mouseX, int mouseY, float delta) {
-
     }
 
     @Override

@@ -2,10 +2,10 @@ package dev.buildtool.satako.gui;
 
 import dev.buildtool.satako.api.Hideable;
 import dev.buildtool.satako.api.Positionable;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.Element;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ClickableWidget;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 
 import java.util.*;
@@ -86,12 +86,12 @@ public class DropDownButton extends BetterButton {
     }
 
     @Override
-    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
-        super.render(matrices, mouseX, mouseY, delta);
+    protected void renderWidget(DrawContext context, int mouseX, int mouseY, float delta) {
+        super.renderWidget(context, mouseX, mouseY, delta);
         if (open)
-            drawTextWithShadow(matrices, textRenderer, " :", getX() + width, getY() + height / 2 - 4, 0xffffffff);
+            context.drawTextWithShadow(textRenderer, " :", getX() + width, getY() + height / 2 - 4, 0xffffffff);
         else
-            drawTextWithShadow(matrices, textRenderer, " V", getX() + width, getY() + height / 2 - 4, 0xffffffff);
+            context.drawTextWithShadow(textRenderer, " V", getX() + width, getY() + height / 2 - 4, 0xffffffff);
     }
 
     /**

@@ -36,7 +36,7 @@ public class Functions {
      */
     public static boolean areItemTypesEqual(ItemStack one, ItemStack two) {
         if (!one.isEmpty() && !two.isEmpty()) {
-            return ItemStack.areItemsEqual(one, two) && ItemStack.areNbtEqual(one, two);
+            return ItemStack.areItemsEqual(one, two) && ItemStack.areEqual(one, two);
         }
         return false;
     }

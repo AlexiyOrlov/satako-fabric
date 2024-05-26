@@ -1,11 +1,9 @@
 package dev.buildtool.satako;
 
-import dev.buildtool.satako.api.TagConvertible;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
 
 ;
 
@@ -13,7 +11,7 @@ import net.minecraft.nbt.NbtCompound;
  * Uses {@linkplain ItemList} to store items.
  * Created on 7/20/19.
  */
-public class DefaultInventory implements Inventory, TagConvertible {
+public class DefaultInventory implements Inventory {
     protected ItemList itemStacks;
 
     public DefaultInventory(int size) {
@@ -103,28 +101,6 @@ public class DefaultInventory implements Inventory, TagConvertible {
 
     public int getEmptySlotCount() {
         return itemStacks.stream().filter(ItemStack::isEmpty).mapToInt(value -> 1).sum();
-    }
-
-    @Override
-    public NbtCompound writeToTag() {
-        NbtCompound nbtCompound = new NbtCompound();
-        for (int i = 0; i < itemStacks.size(); i++) {
-            ItemStack itemStack = itemStacks.get(i);
-            nbtCompound.put("Stack#" + i, itemStack.writeNbt(new NbtCompound()));
-        }
-        nbtCompound.putInt("Size", itemStacks.size());
-        return nbtCompound;
-    }
-
-    @Override
-    public void readFromTag(NbtCompound nbtCompound) {
-        int count = nbtCompound.getInt("Size");
-        if (count > 0) {
-            for (int i = 0; i < count; i++) {
-                ItemStack itemStack = ItemStack.fromNbt(nbtCompound.getCompound("Stack#" + i));
-                setStack(i, itemStack);
-            }
-        }
     }
 
     public ItemList getItems() {
