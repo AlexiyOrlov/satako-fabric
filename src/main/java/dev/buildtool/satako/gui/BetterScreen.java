@@ -21,20 +21,20 @@ public class BetterScreen extends Screen {
 
     @Override
     public void render(DrawContext matrices, int mouseX, int mouseY, float delta) {
-        renderBackground(matrices, mouseX, mouseY, delta);
+        renderBackground(matrices);
         super.render(matrices, mouseX, mouseY, delta);
     }
 
     @Override
-    public boolean mouseScrolled(double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
-        if (verticalAmount != 0) {
+    public boolean mouseScrolled(double mouseX, double mouseY, double amount) {
+        if (amount != 0) {
             for (Element element : this.children()) {
                 if (element instanceof Scrollable scrollable) {
-                    scrollable.scroll((int) Math.signum(verticalAmount), !Screen.hasAltDown());
+                    scrollable.scroll((int) Math.signum(amount), !Screen.hasAltDown());
                 }
             }
         }
-        return super.mouseScrolled(mouseX, mouseY, horizontalAmount, verticalAmount);
+        return super.mouseScrolled(mouseX, mouseY, amount);
     }
 
     @Override

@@ -83,7 +83,7 @@ public class ScrollArea extends ClickableWidget {
     }
 
     @Override
-    protected void renderWidget(DrawContext context, int mouseX, int mouseY, float delta) {
+    protected void renderButton(DrawContext context, int mouseX, int mouseY, float delta) {
         context.fill(getX(), getY(), getX() + getWidth(), getY() + getHeight(), color.getIntColor());
         TextRenderer textRenderer = MinecraftClient.getInstance().textRenderer;
         if (!getMessage().getString().isEmpty())

@@ -107,7 +107,7 @@ public class InventoryScreen<S extends ScreenHandler> extends HandledScreen<S> {
 
     @Override
     public void render(DrawContext matrices, int mouseX, int mouseY, float delta) {
-        renderBackground(matrices, mouseX, mouseY, delta);
+        renderBackground(matrices);
         super.render(matrices, mouseX, mouseY, delta);
         drawMouseoverTooltip(matrices, mouseX, mouseY);
     }

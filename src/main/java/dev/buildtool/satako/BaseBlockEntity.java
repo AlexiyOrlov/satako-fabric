@@ -7,7 +7,6 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
-import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
 
@@ -18,9 +17,9 @@ public class BaseBlockEntity extends BlockEntity {
     }
 
     @Override
-    public NbtCompound toInitialChunkDataNbt(RegistryWrapper.WrapperLookup wrapperLookup) {
-        NbtCompound nbtCompound = super.toInitialChunkDataNbt(wrapperLookup);
-        writeNbt(nbtCompound, wrapperLookup);
+    public NbtCompound toInitialChunkDataNbt() {
+        NbtCompound nbtCompound = super.toInitialChunkDataNbt();
+        writeNbt(nbtCompound);
         return nbtCompound;
     }
 

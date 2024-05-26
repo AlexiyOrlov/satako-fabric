@@ -40,7 +40,7 @@ public class RadioButton extends BetterButton {
     }
 
     @Override
-    protected void renderWidget(DrawContext context, int mouseX, int mouseY, float delta) {
+    protected void renderButton(DrawContext context, int mouseX, int mouseY, float delta) {
         if (visible) {
             this.hovered = selected;
             MinecraftClient minecraftClient = MinecraftClient.getInstance();

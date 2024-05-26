@@ -55,7 +55,7 @@ public class Label extends BetterButton implements Scrollable {
     }
 
     @Override
-    protected void renderWidget(DrawContext context, int mouseX, int mouseY, float delta) {
+    protected void renderButton(DrawContext context, int mouseX, int mouseY, float delta) {
         if (visible) {
             if (onPress != null) {
                 context.drawTextWithShadow(MinecraftClient.getInstance().textRenderer, getMessage(), getX(), getY() + (height - 8) / 2, 16777215 | MathHelper.ceil(this.alpha * 255.0F) << 24);
