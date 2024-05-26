@@ -1,7 +1,6 @@
 package dev.buildtool.satako.gui;
 
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.text.Text;
 
@@ -40,13 +39,12 @@ public class RadioButton extends BetterButton {
     }
 
     @Override
-    protected void renderButton(DrawContext context, int mouseX, int mouseY, float delta) {
+    public void render(DrawContext context, int mouseX, int mouseY, float delta) {
         if (visible) {
             this.hovered = selected;
-            MinecraftClient minecraftClient = MinecraftClient.getInstance();
-            TextRenderer textRenderer = minecraftClient.textRenderer;
             int k = this.getTextureY();
             context.drawTexture(WIDGETS_LOCATION, this.getX(), this.getY(), 0, 46 + k * 20, this.width, this.height);
+            this.renderButton(context, mouseX, mouseY, delta);
         }
     }
 
