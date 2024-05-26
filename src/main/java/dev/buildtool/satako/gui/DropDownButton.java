@@ -86,8 +86,8 @@ public class DropDownButton extends BetterButton {
     }
 
     @Override
-    protected void renderButton(DrawContext context, int mouseX, int mouseY, float delta) {
-        super.renderButton(context, mouseX, mouseY, delta);
+    public void render(DrawContext context, int mouseX, int mouseY, float delta) {
+        super.render(context, mouseX, mouseY, delta);
         if (open)
             context.drawTextWithShadow(textRenderer, " :", getX() + width, getY() + height / 2 - 4, 0xffffffff);
         else
