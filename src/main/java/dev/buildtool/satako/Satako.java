@@ -16,11 +16,11 @@ import net.minecraft.util.Identifier;
 public class Satako implements ModInitializer {
     static String ID = "satako";
 
-    public static final ExtendedScreenHandlerType<TestScreenHandler> TEST_SCREEN_HANDLER_OBJECT_EXTENDED_SCREEN_HANDLER_TYPE = new ExtendedScreenHandlerType<>((syncId, inventory, buf) -> new TestScreenHandler(syncId, inventory));
+    public static final ExtendedScreenHandlerType<TestScreenHandler> TEST_SCREEN_HANDLER = new ExtendedScreenHandlerType<>((syncId, inventory, buf) -> new TestScreenHandler(syncId, inventory));
 
     @Override
     public void onInitialize() {
-        Registry.register(Registries.SCREEN_HANDLER, new Identifier(ID, "test_handler"), TEST_SCREEN_HANDLER_OBJECT_EXTENDED_SCREEN_HANDLER_TYPE);
+        Registry.register(Registries.SCREEN_HANDLER, new Identifier(ID, "test_handler"), TEST_SCREEN_HANDLER);
         Block block = Registry.register(Registries.BLOCK, new Identifier(ID, "test_block"), new TestBlock(AbstractBlock.Settings.copy(Blocks.COMMAND_BLOCK)));
         Registry.register(Registries.ITEM, new Identifier(ID, "test_block"), new BlockItem(block, new Item.Settings().maxCount(1)));
     }

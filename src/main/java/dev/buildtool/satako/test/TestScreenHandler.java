@@ -9,7 +9,7 @@ import net.minecraft.entity.player.PlayerInventory;
 
 public class TestScreenHandler extends BetterScreenHandler {
     public TestScreenHandler(int syncId, PlayerInventory inventory) {
-        super(Satako.TEST_SCREEN_HANDLER_OBJECT_EXTENDED_SCREEN_HANDLER_TYPE, syncId);
+        super(Satako.TEST_SCREEN_HANDLER, syncId);
         DefaultInventory defaultInventory = new DefaultInventory(1);
         addSlot(new BetterSlot(defaultInventory, 0, 0, 0).setColor(new IntegerColor(0xff4f6a7b)));
         addPlayerInventory(0, 20, inventory);
