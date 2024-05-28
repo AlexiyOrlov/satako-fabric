@@ -1,3 +1,6 @@
+1.0.16:
+implemented commands give2 and summon2;
+
 1.0.15-1.19.2:
 fixed dropdown button;
 fixed color;
