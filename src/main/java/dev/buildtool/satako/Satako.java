@@ -1,7 +1,10 @@
 package dev.buildtool.satako;
 
+import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.RequiredArgumentBuilder;
+import com.mojang.brigadier.context.CommandContext;
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.suggestion.SuggestionProvider;
 import com.mojang.brigadier.tree.ArgumentCommandNode;
 import com.mojang.brigadier.tree.LiteralCommandNode;
@@ -14,21 +17,31 @@ import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.command.CommandSource;
+import net.minecraft.command.EntitySelector;
+import net.minecraft.command.argument.EntityArgumentType;
 import net.minecraft.command.argument.PosArgument;
 import net.minecraft.command.argument.Vec3ArgumentType;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
+
+import java.util.Collection;
+import java.util.stream.Collectors;
 
 public class Satako implements ModInitializer {
     static String ID = "satako";
@@ -69,6 +82,28 @@ public class Satako implements ModInitializer {
             domain.addChild(name);
             name.addChild(position.build());
             dispatcher.getRoot().addChild(built);
+
+            SuggestionProvider<ServerCommandSource> mods = (context, builder) -> CommandSource.suggestMatching(Registries.ITEM.getIds().stream().map(Identifier::getNamespace).collect(Collectors.toSet()).stream(), builder);
+            SuggestionProvider<ServerCommandSource> items = (context, builder) -> CommandSource.suggestMatching(Registries.ITEM.getIds().stream().filter(identifier -> identifier.getNamespace().equals(context.getArgument("mod", String.class))).map(Identifier::getPath).collect(Collectors.toSet()).stream(), builder);
+
+            LiteralCommandNode<ServerCommandSource> give2 = dispatcher.register(CommandManager.literal("give2").requires(commandSource -> commandSource.hasPermissionLevel(2)));
+            RequiredArgumentBuilder<ServerCommandSource, EntitySelector> targets = CommandManager.argument("targets", EntityArgumentType.players());
+            RequiredArgumentBuilder<ServerCommandSource, String> itemMod = CommandManager.argument("mod", StringArgumentType.string()).suggests(mods);
+            RequiredArgumentBuilder<ServerCommandSource, String> itemPath = CommandManager.argument("item", StringArgumentType.string()).suggests(items);
+            itemPath.executes(context -> giveItems(context, 1));
+            RequiredArgumentBuilder<ServerCommandSource, Integer> count = CommandManager.argument("count", IntegerArgumentType.integer(1));
+            count.executes(context -> giveItems(context, IntegerArgumentType.getInteger(context, "count")));
+
+            LiteralCommandNode<ServerCommandSource> giveNode = give2.createBuilder().build();
+            ArgumentCommandNode<ServerCommandSource, EntitySelector> players = targets.build();
+            ArgumentCommandNode<ServerCommandSource, String> itemDomain = itemMod.build();
+            ArgumentCommandNode<ServerCommandSource, String> item = itemPath.build();
+            ArgumentCommandNode<ServerCommandSource, Integer> countNode = count.build();
+            giveNode.addChild(players);
+            players.addChild(itemDomain);
+            itemDomain.addChild(item);
+            item.addChild(countNode);
+            dispatcher.getRoot().addChild(giveNode);
         });
     }
 
@@ -84,6 +119,41 @@ public class Satako implements ModInitializer {
             mob.initialize(serverWorld, serverWorld.getLocalDifficulty(entity.getBlockPos()), SpawnReason.COMMAND, null, null);
         serverWorld.spawnEntity(entity);
         commandSource.sendFeedback(() -> Text.literal("Summoned " + entity.getName() + " at " + (int) position.x + " " + (int) position.y + " " + (int) position.z), true);
+        return 1;
+    }
+
+    private static int giveItems(CommandContext<ServerCommandSource> context, int amount) throws CommandSyntaxException {
+        String modName = context.getArgument("mod", String.class);
+        String itemName = context.getArgument("item", String.class);
+        Identifier identifier = new Identifier(modName, itemName);
+        Item item = Registries.ITEM.get(identifier);
+        Collection<ServerPlayerEntity> playerEntities = EntityArgumentType.getPlayers(context, "targets");
+        playerEntities.forEach(serverPlayerEntity -> {
+            int i = amount;
+            while (i > 0) {
+                int j = Math.min(item.getMaxCount(), i);
+                i -= j;
+                ItemStack itemStack = new ItemStack(item, j);
+                boolean flag = serverPlayerEntity.getInventory().insertStack(itemStack);
+                if (flag && itemStack.isEmpty()) {
+                    itemStack.setCount(1);
+                    ItemEntity itemEntity = serverPlayerEntity.dropItem(itemStack, false);
+                    if (itemEntity != null) {
+                        itemEntity.setDespawnImmediately();
+                    }
+
+                    serverPlayerEntity.currentScreenHandler.sendContentUpdates();
+                } else {
+                    ItemEntity itemEntity = serverPlayerEntity.dropItem(itemStack, false);
+                    if (itemEntity != null) {
+                        itemEntity.setPickupDelayInfinite();
+                        itemEntity.setOwner(serverPlayerEntity.getUuid());
+                    }
+                }
+                serverPlayerEntity.getWorld().playSound(null, serverPlayerEntity.getX(), serverPlayerEntity.getY(), serverPlayerEntity.getZ(), SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS, 0.2f, ((serverPlayerEntity.getRandom().nextFloat() - serverPlayerEntity.getRandom().nextFloat()) * 0.7f + 1) * 2);
+
+            }
+        });
         return 1;
     }
 }
