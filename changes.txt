@@ -1,3 +1,6 @@
+2.0.1:
+implemented commands give2 and summon2;
+
 2.0.0-1.20.1:
 updated
 
