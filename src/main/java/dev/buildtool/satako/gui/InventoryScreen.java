@@ -104,6 +104,10 @@ public class InventoryScreen<S extends ScreenHandler> extends HandledScreen<S> {
         }
     }
 
+    @Override
+    protected void drawForeground(DrawContext context, int mouseX, int mouseY) {
+        context.drawText(textRenderer, title, backgroundWidth / 2 - textRenderer.getWidth(title.getString()) / 2, -14, 0xE35F3B, false);
+    }
 
     @Override
     public void render(DrawContext matrices, int mouseX, int mouseY, float delta) {
