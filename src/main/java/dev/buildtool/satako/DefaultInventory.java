@@ -67,37 +67,13 @@ public class DefaultInventory implements Inventory, TagConvertible {
     }
 
     /**
+     * TODO
      * Inserts item into inventory fully or 1-by-1
      *
      * @param i stack to insert
      * @return amount inserted
      */
     public int addStack(ItemStack i) {
-        int inCount = i.getCount();
-        for (int j = 0; j < size(); j++) {
-            ItemStack itemStack = getStack(j);
-            if (Functions.areItemTypesEqual(i, itemStack)) {
-                if (itemStack.isEmpty()) {
-                    setStack(j, i);
-                    return inCount;
-                } else if (itemStack.getCount() + inCount <= itemStack.getMaxCount()) {
-                    itemStack.increment(inCount);
-                    i.decrement(inCount);
-                    return inCount;
-                } else if (itemStack.getCount() + 1 <= itemStack.getMaxCount()) {
-                    itemStack.increment(1);
-                    i.decrement(1);
-                    return 1;
-                }
-            }
-        }
-        for (int j = 0; j < size(); j++) {
-            ItemStack itemStack = getStack(j);
-            if (itemStack.isEmpty()) {
-                setStack(j, i);
-                return inCount;
-            }
-        }
         return 0;
     }
 
