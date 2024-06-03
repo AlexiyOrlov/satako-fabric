@@ -1,5 +1,6 @@
-2.0.2:
+2.0.3:
 implemented TagConvertible on DefaultInventory;
+fixed inventory title drawing;
 
 2.0.1:
 implemented commands give2 and summon2;
