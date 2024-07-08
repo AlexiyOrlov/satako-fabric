@@ -38,13 +38,13 @@ public class ScrollArea extends ClickableWidget {
         this.elements = elements;
         for (Object object : this.elements) {
             if (object instanceof Positionable positionable) {
-                positionable.setY(this.getY() + positionable.getY());
-                positionable.setX(this.getX() + positionable.getX());
+                positionable.setYPosition(this.getY() + positionable.getYPosition());
+                positionable.setXPosition(this.getX() + positionable.getXPosition());
                 if (object instanceof Hideable hideable) {
-                    hideable.setHidden(positionable.getY() < this.getY() || positionable.getY() + positionable.getElementHeight() > this.getY() + height);
+                    hideable.setHidden(positionable.getYPosition() < this.getY() || positionable.getYPosition() + positionable.getElementHeight() > this.getY() + height);
                 }
-                if (positionable.getY() > highest)
-                    highest = positionable.getY();
+                if (positionable.getYPosition() > highest)
+                    highest = positionable.getYPosition();
             } else if (object instanceof ClickableWidget clickableWidget) {
                 clickableWidget.setX(x + clickableWidget.getX());
                 clickableWidget.setY(y + clickableWidget.getY());
@@ -55,14 +55,14 @@ public class ScrollArea extends ClickableWidget {
         }
         for (Object element : elements) {
             if (element instanceof Positionable positionable) {
-                if (positionable.getY() == highest)
+                if (positionable.getYPosition() == highest)
                     bottomElement = element;
             } else if (element instanceof ClickableWidget clickableWidget) {
                 if (clickableWidget.getY() == highest)
                     bottomElement = clickableWidget;
             }
         }
-        maxScrollDistance = bottomElement instanceof Positionable positionable ? positionable.getY() + positionable.getElementHeight() : bottomElement instanceof ClickableWidget clickableWidget ? clickableWidget.getY() + clickableWidget.getHeight() : 0;
+        maxScrollDistance = bottomElement instanceof Positionable positionable ? positionable.getYPosition() + positionable.getElementHeight() : bottomElement instanceof ClickableWidget clickableWidget ? clickableWidget.getY() + clickableWidget.getHeight() : 0;
     }
 
     @Override
@@ -110,9 +110,9 @@ public class ScrollArea extends ClickableWidget {
             if (scrolled == 0 || (scrolled > -(maxScrollDistance - height) || scrolled < -(maxScrollDistance - height) && scrollDirection == 1) && (scrolled <= 0 || scrollDirection == -1)) {
                 for (Object guiEventListener : elements) {
                     if (guiEventListener instanceof Positionable positionable3) {
-                        positionable3.setY(positionable3.getY() + scrollDirection * 20);
+                        positionable3.setYPosition(positionable3.getYPosition() + scrollDirection * 20);
                         if (positionable3 instanceof Hideable hideable) {
-                            hideable.setHidden(positionable3.getY() < getY() || positionable3.getY() + positionable3.getElementHeight() > getY() + height);
+                            hideable.setHidden(positionable3.getYPosition() < getY() || positionable3.getYPosition() + positionable3.getElementHeight() > getY() + height);
                         }
                     } else if (guiEventListener instanceof ClickableWidget a) {
                         a.setY(a.getY() + scrollDirection * 20);

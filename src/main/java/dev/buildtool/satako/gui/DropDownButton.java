@@ -34,7 +34,7 @@ public class DropDownButton extends BetterButton {
                                 if (clickableWidget instanceof Hideable hideable) {
                                     for (int i = 0; i < positionable.getElementWidth(); i++) {
                                         for (int j = 0; j < positionable.getElementHeight(); j++) {
-                                            if (isInsideArea(positionable.getX() + i, positionable.getY() + j, radioButton.getX(), radioButton.getX() + radioButton.getElementWidth(), radioButton.getY(), radioButton.getY() + radioButton.getElementHeight())) {
+                                            if (isInsideArea(positionable.getXPosition() + i, positionable.getYPosition() + j, radioButton.getX(), radioButton.getX() + radioButton.getElementWidth(), radioButton.getY(), radioButton.getY() + radioButton.getElementHeight())) {
                                                 hideable.setHidden(true);
                                                 overlappingElements.add(clickableWidget);
                                                 break;

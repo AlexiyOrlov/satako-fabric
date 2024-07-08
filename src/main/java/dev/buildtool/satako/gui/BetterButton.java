@@ -77,4 +77,24 @@ public class BetterButton extends ButtonWidget implements Scrollable, Positionab
     public int getElementHeight() {
         return height;
     }
+
+    @Override
+    public int getXPosition() {
+        return getX();
+    }
+
+    @Override
+    public void setXPosition(int X) {
+        setX(X);
+    }
+
+    @Override
+    public int getYPosition() {
+        return getY();
+    }
+
+    @Override
+    public void setYPosition(int Y) {
+        setY(Y);
+    }
 }
