@@ -1,3 +1,6 @@
+2.0.4:
+fixed not launching with Java 17
+
 2.0.3:
 implemented TagConvertible on DefaultInventory;
 fixed inventory title drawing;
